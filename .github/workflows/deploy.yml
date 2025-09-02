@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+  permissions:
+    contents: write   # to allow GitHub to create a deployment
+    
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,4 +22,8 @@ jobs:
       - name: Build
         run: npm run build
 
-        
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20    
+        with:
+          vercel-args: '--prod' # Deploy to production
+          working-directory: ./ # Adjust if your project is in a subdirectory
